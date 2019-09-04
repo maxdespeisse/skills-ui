@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import EvaluationForm from './components/EvaluationForm';
+import SearchUserForm from './components/SearchUserForm';
 
 function App() {
   return (
     <Router>
       <div>
-        <Route exact path="/" component={EvaluationForm} />
+        <Route exact path="/" component={SearchUserForm} />
       </div>
     </Router>
   );

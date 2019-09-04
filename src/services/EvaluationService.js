@@ -1,6 +1,5 @@
-import axios from 'axios';
-
-const BASE_URL = process.env.REACT_APP_API_URL;
+import GenericApi from './GenericApi';
+import conf from '../conf';
 
 const EvaluationService = {
   post: function({ username, skill, level }) {
@@ -14,13 +13,8 @@ const EvaluationService = {
         date: (new Date()).toISOString(),
       }
     };
-    axios.post(BASE_URL + '/AddEvaluationFunction', data)
-      .then( response => {
-        console.log(response);
-      })
-      .catch(error=> {
-        console.log(error);
-      });
+    const url = conf.API_BASE_URL + conf.POST_EVALUATION_URL;
+    return GenericApi.post(url, data, { code: conf.POST_EVALUATION_CODE });
   }
 };
 
