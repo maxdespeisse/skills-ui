@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SkillService from '../services/SkillService';
+import SkillsApi from '../services/SkillsApi';
 import SkillsTable from './SkillsTable';
 import EvaluationForm from './EvaluationForm';
 
@@ -18,14 +18,14 @@ export default class SearchUserForm extends Component {
   submit(event) {
     event.preventDefault();
     const { username } = this.state;
-    SkillService.getByUser(username)
-    .then(response => {
-      this.setState({
-        evaluations: response.data.evaluations,
+    SkillsApi.getSkillsByUser(username)
+      .then(response => {
+        this.setState({
+          evaluations: response.data.evaluations,
+        });
+      }).catch(error => {
+        console.error('GET skills by user error', error);
       });
-    }).catch(error => {
-      console.error('GET skills by user error', error);
-    });
   }
 
   toggleEvaluationForm() {
