@@ -47,14 +47,14 @@ export default class SearchUserForm extends Component {
             <label htmlFor="usernameInput">Name</label>
             <input type="text" className="form-control" id="usernameInput" onChange={e => {
               this.setState({ username: e.target.value })
-            }}/>
+            }} />
           </div>
           <button className="btn btn-primary" type="submit">Search</button>
           <button className="btn btn-outline-primary ml-2" type="button" onClick={this.toggleEvaluationForm}>
             Add an evaluation
           </button>
         </form>
-        {isEvaluationFormOpen && <EvaluationForm username={username} addEvaluation={this.addEvaluation}/>}
+        {isEvaluationFormOpen && <EvaluationForm username={username} addEvaluation={this.addEvaluation} />}
         {evaluations.length > 0 && <SkillsTable evaluations={evaluations} />}
       </div>
     );

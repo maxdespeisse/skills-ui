@@ -9,7 +9,7 @@ const GenericApi = {
         'x-functions-key': apiKey,
       },
       params: queryParams,
-   });
+    });
   },
 
   post: (url, apiKey, data, queryParams) => {

@@ -1,8 +1,14 @@
 import React from 'react';
 import _ from 'lodash';
 
+const evaluationComparator = (evaluation, otherEvaluation) =>
+  (evaluation.skill === otherEvaluation.skill)
+  && (evaluation.level === otherEvaluation.level);
+
+const removeDuplicates = evaluations => _.uniqWith(evaluations, evaluationComparator);
+
 export default function SkillsTable({ evaluations = [] }) {
-  const evaluationsToDisplay = _.uniqBy(evaluations, ({skill, level}) => skill + level);
+  const evaluationsToDisplay = removeDuplicates(evaluations);
   return (
     <table className="table">
       <thead>
@@ -12,13 +18,13 @@ export default function SkillsTable({ evaluations = [] }) {
         </tr>
       </thead>
       <tbody>
-        {evaluationsToDisplay.map(({skill, level}) => (
+        {evaluationsToDisplay.map(({ skill, level }) => (
           <tr key={skill + level}>
             <td>{skill}</td>
             <td>{level}</td>
           </tr>
         ))}
-     </tbody>
+      </tbody>
     </table>
   );
 };
