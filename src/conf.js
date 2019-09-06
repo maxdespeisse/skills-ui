@@ -6,7 +6,4 @@ const conf = {
   POST_EVALUATION_API_KEY: process.env.REACT_APP_POST_EVALUATION_API_KEY,
 };
 
-console.debug('env variables', process.env);
-console.debug('conf', conf);
-
 export default conf;
