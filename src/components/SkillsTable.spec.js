@@ -14,7 +14,3 @@ test('Should display table header and row', () => {
   expect(getByText('Scala')).toBeDefined();
   expect(getByText('5')).toBeDefined();
 })
-
-test('Should fail', () => {
-  expect(1).toEqual(2);
-})
