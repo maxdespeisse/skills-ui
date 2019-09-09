@@ -1,5 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Environment configuration
+
+Before starting the application the following environment variables must be set:
+`REACT_APP_GET_USER_SKILL_API_KEY`
+`REACT_APP_POST_EVALUATION_API_KEY`
+
+On local env (Windows Powershell) run:
+`$env:REACT_APP_GET_USER_SKILL_API_KEY="XXXX"`
+`$env:REACT_APP_POST_EVALUATION_API_KEY="YYYY"`
+
+On local env (Linux) run:
+`REACT_APP_GET_USER_SKILL_API_KEY="XXXX"`
+`REACT_APP_POST_EVALUATION_API_KEY="YYYY"`
+
 ## Available Scripts
 
 In the project directory, you can run:
