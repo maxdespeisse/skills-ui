@@ -1,4 +1,5 @@
 import GenericApi from './GenericApi';
+import moment from 'moment';
 import conf from '../conf';
 
 const SkillsApi = {
@@ -7,7 +8,7 @@ const SkillsApi = {
     return GenericApi.get(url, conf.GET_USER_SKILL_API_KEY, { name: username });
   },
 
-  postEvaluation: ({ username, skill, level }) => {
+  postEvaluation: ({ username, skill, level, date }) => {
     const data = {
       user: {
         name: username
@@ -15,7 +16,7 @@ const SkillsApi = {
       evaluation: {
         skill,
         level,
-        date: (new Date()).toISOString(),
+        date: moment(date).toISOString(),
       }
     };
     const url = conf.API_BASE_URL + conf.POST_EVALUATION_URL;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import SkillsApi from '../services/SkillsApi';
-import FormErrorMessage from './FormErrorMessage';
+import LabelWithError from './LabelWithError';
 
 const inputClassName = error => `form-control ${error ? 'is-invalid' : ''}`;
 const MAX_LEVEL = 5;
@@ -9,18 +10,18 @@ const MAX_LEVEL = 5;
 export default class EvaluationForm extends Component {
   constructor(props) {
     super();
-    const { username = '' } = props;
     this.state = {
       errors: {},
       level: 1,
-      username,
+      date: moment().format('YYYY-MM-DD'),
     };
     this.isFormValid = this.isFormValid.bind(this);
     this.submit = this.submit.bind(this);
   }
 
   isFormValid() {
-    const { username, skill } = this.state;
+    const { username } = this.props;
+    const { skill, date } = this.state;
     const errors = {};
     if (!username) {
       errors.username = { message: 'Enter a username' }
@@ -28,29 +29,31 @@ export default class EvaluationForm extends Component {
     if (!skill) {
       errors.skill = { message: 'Enter a skill' }
     }
+    if (!date) {
+      errors.date = { message: 'Pick a date' }
+    }
     this.setState({ errors });
     return _.isEmpty(errors);
   }
 
   submit() {
-    const { addEvaluation } = this.props;
-    const { username, skill, level } = this.state;
+    const { addEvaluation, username } = this.props;
+    const { skill, level, date } = this.state;
     if (this.isFormValid()) {
-      SkillsApi.postEvaluation({ username, skill, level })
+      SkillsApi.postEvaluation({ username, skill, level, date })
         .then(() => addEvaluation({ username, skill, level }));
     }
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, date } = this.state;
     return (
       <form>
         <div className="form-group">
-          <label htmlFor="skillInput">Skill</label>
+          <LabelWithError htmlFor="skillInput" error={errors.skill}>Skill</LabelWithError>
           <input type="text" className={inputClassName(errors.skill)} id="skillInput" onChange={e => {
             this.setState({ skill: e.target.value })
           }} />
-          <FormErrorMessage error={errors.skill} />
         </div>
         <div className="form-group">
           <label htmlFor="levelSelect">Level</label>
@@ -63,6 +66,17 @@ export default class EvaluationForm extends Component {
               )
             }
           </select>
+        </div>
+        <div className="form-group">
+          <LabelWithError htmlFor="dateInput" error={errors.date}>Date</LabelWithError>
+          <input type="date"
+            className={inputClassName(errors.date)}
+            id="dateInput"
+            name="evaluationDate"
+            value={date}
+            onChange={e => {
+              this.setState({ date: e.target.value })
+            }} />
         </div>
         <button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
       </form>
