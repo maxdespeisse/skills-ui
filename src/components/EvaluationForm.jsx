@@ -4,6 +4,7 @@ import SkillsApi from '../services/SkillsApi';
 import FormErrorMessage from './FormErrorMessage';
 
 const inputClassName = error => `form-control ${error ? 'is-invalid' : ''}`;
+const MAX_LEVEL = 5;
 
 export default class EvaluationForm extends Component {
   constructor(props) {
@@ -56,11 +57,11 @@ export default class EvaluationForm extends Component {
           <select className="form-control" id="levelSelect" onChange={e => {
             this.setState({ level: e.target.value })
           }}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            {
+              Array(MAX_LEVEL + 1).fill().map((x, i) =>
+                <option key={i}>{i}</option>
+              )
+            }
           </select>
         </div>
         <button className="btn btn-primary" type="button" onClick={this.submit}>Save</button>
